@@ -38,7 +38,7 @@ pgdata/
 
 # env
 .env
-.env.prod
+.env.local
 
 #uploaded files
 uploads
