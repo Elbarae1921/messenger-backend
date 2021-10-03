@@ -23,8 +23,14 @@ const main = async () => {
     app.use(
         cors({
             credentials: true,
-            origin: (_, callback) => {
-                callback(null, true);
+            origin: (origin, callback) => {
+                const origins = String(process.env.CORS_ORIGIN).split(',');
+                // check if domain is allowed
+                if (!origin || origins.includes(String(origin))) {
+                    callback(null, true);
+                } else {
+                    callback(null, false);
+                }
             }
         })
     );
@@ -38,7 +44,8 @@ const main = async () => {
                 disableTouch: true
             }),
             cookie: {
-                secure: process.env.NODE_ENV === 'production',
+                // secure: process.env.NODE_ENV === 'production',
+                secure: false, // app still in development
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
                 sameSite: 'lax'
