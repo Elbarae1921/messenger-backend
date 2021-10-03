@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  messenger_db:
+    container_name: messenger_db
+    image: postgres:13
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data:delegated
+    ports:
+      - 5431:5432
+    env_file: .env.prod
+    networks:
+      - messenger_net
+
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    env_file: .env.prod
+    ports: 
+      - 6379:6379
+    networks:
+      - messenger_net
+
+  messenger:
+    container_name: messenger
+    restart: always
+    build: .
+    env_file: .env.prod
+    ports:
+      - 5000:4000
+    external_links:
+      - messenger_db
+      - redis
+    depends_on:
+      - messenger_db
+      - redis
+    networks:
+      - messenger_net
+
+volumes:
+  pgdata:
+
+networks:
+  messenger_net:
+    driver: bridge

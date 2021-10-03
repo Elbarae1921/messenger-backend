@@ -1,0 +1,21 @@
+# compose file for running the database and redis only
+
+version: '3.7'
+
+services:
+  messenger_db:
+    container_name: messenger_db
+    image: postgres:13
+    volumes:
+        - pgdata:/var/lib/postgresql/data:delegated
+    ports:
+      - ${POSTGRES_PORT}:5432
+    env_file: .env
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports: 
+      - ${REDIS_PORT}:6379
+
+volumes:
+  pgdata:

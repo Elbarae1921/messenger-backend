@@ -1,0 +1,5 @@
+pgdata
+dist
+node_modules
+uploads
+*.yml
