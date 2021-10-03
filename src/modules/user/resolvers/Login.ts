@@ -1,19 +1,17 @@
 import { User } from '../../../entities/User';
-import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from 'type-graphql';
-import { LoginInput } from '../inputs/LoginInput';
+import { Arg, Mutation, Resolver, UseMiddleware } from 'type-graphql';
+import { LoginInput } from '../types/LoginInput';
 import { compare } from 'bcrypt';
-import { IContext } from '../../../types/Context';
 import { LogAccess } from '../../../middlewares/LogAccess';
 import { ResolveTime } from '../../../middlewares/ResolveTime';
+import { signJwt } from '../../../helpers/signJwt';
+import { LoginOutput } from '../types/LoginOutput';
 
 @Resolver()
 export class LoginResolver {
-    @Mutation(() => User, { nullable: true })
+    @Mutation(() => LoginOutput, { nullable: true })
     @UseMiddleware(LogAccess, ResolveTime)
-    async login(
-        @Arg('data') { email, password }: LoginInput,
-        @Ctx() { req }: IContext
-    ): Promise<User | null> {
+    async login(@Arg('data') { email, password }: LoginInput): Promise<LoginOutput | null> {
         const user = await User.findOne({
             where: { email }
         });
@@ -26,8 +24,8 @@ export class LoginResolver {
             return null;
         }
 
-        req.session.userId = user.id;
+        const jwt = signJwt(user.id);
 
-        return user;
+        return { user, jwt };
     }
 }

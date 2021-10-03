@@ -15,17 +15,6 @@ services:
     networks:
       - messenger_net
 
-
-  redis:
-    container_name: redis
-    image: redis:latest
-    restart: always
-    env_file: .env
-    ports: 
-      - ${REDIS_PORT}:${REDIS_PORT}
-    networks:
-      - messenger_net
-
   messenger:
     container_name: messenger
     restart: always
@@ -35,10 +24,8 @@ services:
       - ${PORT}:${PORT}
     external_links:
       - messenger_db
-      - redis
     depends_on:
       - messenger_db
-      - redis
     networks:
       - messenger_net
 

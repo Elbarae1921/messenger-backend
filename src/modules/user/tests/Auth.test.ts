@@ -27,11 +27,14 @@ mutation Register($data: RegisterInput!) {
     register(
         data: $data
     ) {
-        id
-        firstName
-        lastName
-        fullName
-        email
+        user {
+            id
+            firstName
+            lastName
+            fullName
+            email
+        }
+        jwt
     }
 }
 `;
@@ -47,10 +50,13 @@ describe('Register', () => {
         expect(response).toMatchObject({
             data: {
                 register: {
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    fullName: `${user.firstName} ${user.lastName}`,
-                    email: user.email
+                    user: {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        fullName: `${user.firstName} ${user.lastName}`,
+                        email: user.email
+                    },
+                    jwt: expect.any(String)
                 }
             }
         });
@@ -65,11 +71,14 @@ mutation Login($data: LoginInput!) {
     login(
         data: $data
     ) {
-        id
-        firstName
-        lastName
-        fullName
-        email
+        user {
+            id
+            firstName
+            lastName
+            fullName
+            email
+        }
+        jwt
     }
 }
 `;
@@ -89,10 +98,13 @@ describe('Login', () => {
         expect(loginResponse).toMatchObject({
             data: {
                 login: {
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    fullName: `${user.firstName} ${user.lastName}`,
-                    email: user.email
+                    user: {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        fullName: `${user.firstName} ${user.lastName}`,
+                        email: user.email
+                    },
+                    jwt: expect.any(String)
                 }
             }
         });

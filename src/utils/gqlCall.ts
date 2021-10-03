@@ -23,12 +23,12 @@ export const gqlCall = async ({ source, variableValues, userId }: Props) => {
         variableValues,
         contextValue: {
             req: {
-                session: {
+                user: {
                     userId
                 }
             },
-            res: {
-                clearCookie: jest.fn()
+            jwtPayload: {
+                userId
             }
         }
     });

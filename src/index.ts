@@ -4,11 +4,8 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import Express from 'express';
 import { createConnection } from 'typeorm';
-import session from 'express-session';
-import connectRedis from 'connect-redis';
-import cors from 'cors';
+import jwt from 'express-jwt';
 
-import { redisClient } from './redis';
 import { createSchema } from './utils/createSchema';
 
 const main = async () => {
@@ -18,46 +15,17 @@ const main = async () => {
 
     const schema = await createSchema();
 
-    const RedisStore = connectRedis(session);
-
     app.use(
-        cors({
-            credentials: true,
-            origin: (origin, callback) => {
-                const origins = String(process.env.CORS_ORIGIN).split(',');
-                // check if domain is allowed
-                if (!origin || origins.includes(String(origin))) {
-                    callback(null, true);
-                } else {
-                    callback(null, false);
-                }
-            }
-        })
-    );
-
-    app.use(
-        session({
-            name: 'sid',
-            secret: String(process.env.SESSION_SECRET),
-            store: new RedisStore({
-                client: redisClient,
-                disableTouch: true
-            }),
-            cookie: {
-                // secure: process.env.NODE_ENV === 'production',
-                secure: false, // app still in development
-                httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
-                sameSite: 'lax'
-            },
-            resave: false,
-            saveUninitialized: false
+        jwt({
+            secret: String(process.env.JWT_SECRET) || 'secret',
+            credentialsRequired: false,
+            algorithms: ['HS256']
         })
     );
 
     const server = new ApolloServer({
         schema,
-        context: ({ req, res }) => ({ req, res }),
+        context: ({ req }) => ({ req, jwtPayload: req.user }),
         plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
         introspection: true
     });

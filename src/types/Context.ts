@@ -1,11 +1,10 @@
-import { Request, Response } from 'express';
-import { Session, SessionData } from 'express-session';
+import { Request } from 'express';
+
 import { User } from '../entities/User';
+import { IJwtPayload } from './JwtPayload';
 
 export interface IContext {
-    req: Request & {
-        session: Session & Partial<SessionData> & { userId: number };
-    };
-    res: Response;
+    req: Request;
+    jwtPayload: IJwtPayload;
     user: User;
 }

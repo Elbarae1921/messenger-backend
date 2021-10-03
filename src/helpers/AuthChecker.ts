@@ -3,11 +3,11 @@ import { User } from '../entities/User';
 import { IContext } from '../types/Context';
 
 export const AuthenticationChecker: AuthChecker<IContext> = async ({ context }) => {
-    if (!context.req.session.userId) {
+    if (!context?.jwtPayload?.userId) {
         return false;
     }
 
-    const user = await User.findOne(context.req.session.userId);
+    const user = await User.findOne(context.jwtPayload.userId);
 
     if (!user) {
         return false;

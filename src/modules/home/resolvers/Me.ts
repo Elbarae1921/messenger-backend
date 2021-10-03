@@ -10,10 +10,10 @@ export class MeResolver {
     @Authorized()
     @Query(() => User, { nullable: true })
     @UseMiddleware(LogAccess, ResolveTime)
-    async me(@Ctx() { req }: IContext): Promise<User | null> {
-        if (!req.session.userId) {
+    async me(@Ctx() { jwtPayload }: IContext): Promise<User | null> {
+        if (!jwtPayload.userId) {
             return null;
         }
-        return User.findOne(req.session.userId);
+        return User.findOne(jwtPayload.userId);
     }
 }
