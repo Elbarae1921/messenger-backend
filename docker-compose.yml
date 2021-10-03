@@ -10,7 +10,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data:delegated
     ports:
-      - 5433:${POSTGRES_PORT}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     env_file: .env
     networks:
       - messenger_net
