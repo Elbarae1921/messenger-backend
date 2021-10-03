@@ -23,7 +23,9 @@ const main = async () => {
     app.use(
         cors({
             credentials: true,
-            origin: String(process.env.FRONTEND_URL)
+            origin: (_, callback) => {
+                callback(null, true);
+            }
         })
     );
 
