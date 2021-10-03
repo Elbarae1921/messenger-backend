@@ -1,5 +1,3 @@
 #!/bin/bash
-cd /home/elbarae/skeduler_backend
-pwd
-ls -a
+cd /home/elbarae/messenger-backend
 docker-compose build
