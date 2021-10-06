@@ -5,6 +5,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-co
 import Express from 'express';
 import { createConnection } from 'typeorm';
 import jwt from 'express-jwt';
+import cors from 'cors';
 
 import { createSchema } from './utils/createSchema';
 
@@ -14,6 +15,8 @@ const main = async () => {
     const app = Express();
 
     const schema = await createSchema();
+
+    app.use(cors());
 
     app.use(
         jwt({
