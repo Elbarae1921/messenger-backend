@@ -39,7 +39,7 @@ const main = async () => {
 
     const PORT = process.env.PORT || 4000;
 
-    app.listen(PORT, () =>
+    app.listen({ port: PORT }, () =>
         console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
     );
 };

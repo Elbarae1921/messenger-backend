@@ -2,7 +2,7 @@
 
 ## Setup
 
-Create a `.env.local` for local development (outisde docker) from the `.env.local.example` file.
+Create a `.env` (for running the app outside of docker- development) and `.env.prod` (for running the app inside docker- production) file from the `.env.example` and `.env.prod.example` respectively, and assign the variables their corresponding values.
 
 ### Development
 
@@ -18,8 +18,6 @@ $ yarn start:dev
 ```
 
 ### Production
-
-Create a `.env` for production from the `.env.example` file.
 
 ```bash
 $ # start up the containers
