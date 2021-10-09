@@ -15,6 +15,5 @@ COPY package.json ./
 COPY yarn.lock ./
 RUN yarn --prod
 COPY --from=build /usr/dist ./dist/
-RUN yarn migration:up:prod
 EXPOSE 4000
 CMD ["yarn", "start:prod"]
