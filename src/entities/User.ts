@@ -1,7 +1,8 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, Column, Entity, ManyToMany, OneToMany } from 'typeorm';
 import { hash } from 'bcrypt';
-import { AbstractEntity } from './AsbtractEntity';
+import { AbstractEntity } from './AbstractEntity';
 import { Field, ObjectType, Root } from 'type-graphql';
+import { Post } from './Post';
 
 @ObjectType()
 @Entity('users')
@@ -33,6 +34,12 @@ export class User extends AbstractEntity {
 
     @Column()
     password: string;
+
+    @OneToMany(() => Post, post => post.user)
+    posts: Post[];
+
+    @ManyToMany(() => Post, post => post.likers)
+    likedPosts: Post[];
 
     @BeforeInsert()
     async hashPassword() {
