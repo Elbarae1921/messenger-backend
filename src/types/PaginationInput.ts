@@ -9,8 +9,9 @@ export class PaginationInput {
     @Min(1)
     limit = 10;
 
-    @Field(() => Number)
+    @Field(() => Number, { nullable: true })
+    @IsOptional()
     @IsNumber()
     @Min(1)
-    cursor: number;
+    cursor?: number | undefined;
 }

@@ -1,12 +1,12 @@
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
-import { MoreThan } from 'typeorm';
+import { LessThan } from 'typeorm';
 import { Post } from '../../../entities/Post';
 import { LogAccess, ResolveTime } from '../../../middlewares';
 import { IContext } from '../../../types/Context';
 import { IdInput } from '../../../types/IdInput';
 import { PaginationInput } from '../../../types/PaginationInput';
 import { formatPagination } from '../../../utils/paginate';
-import { GetPostsOutput } from '../../user/types/GetPostsOutput';
+import { GetPostsOutput } from '../types/GetPostsOutput';
 import { CreatePostInput } from '../types/CreatePostInput';
 
 @Resolver()
@@ -15,9 +15,12 @@ export class PostResolver {
     @UseMiddleware(LogAccess, ResolveTime)
     @Query(() => GetPostsOutput)
     async getPosts(@Arg('data') { limit, cursor }: PaginationInput): Promise<GetPostsOutput> {
+        const where = {};
+        if (cursor) where['id'] = LessThan(cursor);
         const results = await Post.find({
-            where: {
-                id: MoreThan(cursor)
+            where,
+            order: {
+                createdAt: 'DESC'
             },
             take: limit
         });
