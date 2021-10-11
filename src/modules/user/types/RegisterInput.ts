@@ -1,4 +1,4 @@
-import { IsEmail, Length } from 'class-validator';
+import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 
 import { IsEmailUnique } from '../../../helpers/isEmailUnique';
@@ -18,4 +18,9 @@ export class RegisterInput extends PasswordInput {
     @IsEmail()
     @IsEmailUnique({ message: 'Email already in use' })
     email: string;
+
+    @Field()
+    @IsString()
+    @IsOptional()
+    image?: string;
 }

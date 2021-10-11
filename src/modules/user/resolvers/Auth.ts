@@ -33,9 +33,9 @@ export class AuthResolver {
     @Mutation(() => LoginOutput)
     @UseMiddleware(LogAccess, ResolveTime)
     async register(
-        @Arg('data') { email, firstName, lastName, password }: RegisterInput
+        @Arg('data') { email, firstName, lastName, password, image }: RegisterInput
     ): Promise<LoginOutput> {
-        const user = new User(firstName, lastName, email, password);
+        const user = new User(firstName, lastName, email, password, image);
 
         await user.save();
 

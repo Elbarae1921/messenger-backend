@@ -8,12 +8,19 @@ import { FriendRequest } from './FriendRequest';
 @ObjectType()
 @Entity('users')
 export class User extends AbstractEntity {
-    constructor(firstName: string, lastName: string, email: string, password: string) {
+    constructor(
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        image?: string
+    ) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.image = image;
     }
 
     @Field()
@@ -28,6 +35,10 @@ export class User extends AbstractEntity {
     fullName(@Root() parent: User): string {
         return parent.firstName + ' ' + parent.lastName;
     }
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    image: string;
 
     @Field()
     @Column({ unique: true })
