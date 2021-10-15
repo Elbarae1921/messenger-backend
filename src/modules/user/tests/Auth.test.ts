@@ -1,19 +1,8 @@
-import { Connection } from 'typeorm';
+import { getConnection } from 'typeorm';
 import faker from 'faker';
 
 import { gqlCall } from '../../../utils/gqlCall';
-import { testCon } from '../../../utils/testCon';
 import { User } from '../../../entities/User';
-
-let con: Connection;
-
-beforeAll(async () => {
-    con = await testCon();
-});
-
-afterAll(async () => {
-    await con.close();
-});
 
 const user = {
     firstName: faker.name.firstName(),
@@ -39,8 +28,10 @@ mutation Register($data: RegisterInput!) {
 }
 `;
 
-describe('Register', () => {
+export const RegisterTest = () => {
     it('creates a user', async () => {
+        const con = getConnection();
+
         const response = await gqlCall({
             source: registerMutation,
             variableValues: {
@@ -64,7 +55,7 @@ describe('Register', () => {
         const dbUser = await con.manager.findOne(User, { where: { email: user.email } });
         expect(dbUser).toBeDefined();
     });
-});
+};
 
 const loginMutation = `
 mutation Login($data: LoginInput!) {
@@ -83,7 +74,7 @@ mutation Login($data: LoginInput!) {
 }
 `;
 
-describe('Login', () => {
+export const LoginTest = () => {
     it('logs in a user', async () => {
         const loginResponse = await gqlCall({
             source: loginMutation,
@@ -109,4 +100,4 @@ describe('Login', () => {
             }
         });
     });
-});
+};

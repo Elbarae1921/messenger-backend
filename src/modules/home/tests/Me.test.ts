@@ -1,19 +1,8 @@
-import { Connection } from 'typeorm';
+import { getConnection } from 'typeorm';
 import faker from 'faker';
 
 import { gqlCall } from '../../../utils/gqlCall';
-import { testCon } from '../../../utils/testCon';
 import { User } from '../../../entities/User';
-
-let con: Connection;
-
-beforeAll(async () => {
-    con = await testCon();
-});
-
-afterAll(async () => {
-    await con.close();
-});
 
 const meQuery = `
 query Me {
@@ -27,8 +16,10 @@ query Me {
 }
 `;
 
-describe('Me', () => {
+export const MeTest = () => {
     it('gets user', async () => {
+        const con = getConnection();
+
         const userData = {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
@@ -65,4 +56,4 @@ describe('Me', () => {
             }
         });
     });
-});
+};

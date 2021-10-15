@@ -19,7 +19,7 @@ export class Comment extends AbstractEntity {
     content: string;
 
     @Field(() => Post)
-    @ManyToOne(() => Post, post => post.comments)
+    @ManyToOne(() => Post, post => post.comments, { onDelete: 'CASCADE' })
     post: Post;
 
     @Field(() => User)
