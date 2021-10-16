@@ -18,9 +18,4 @@ export class RegisterInput extends PasswordInput {
     @IsEmail()
     @IsEmailUnique({ message: 'Email already in use' })
     email: string;
-
-    @Field({ nullable: true })
-    @IsString()
-    @IsOptional()
-    image?: string;
 }

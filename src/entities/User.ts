@@ -8,19 +8,15 @@ import { FriendRequest } from './FriendRequest';
 @ObjectType()
 @Entity('users')
 export class User extends AbstractEntity {
-    constructor(
-        firstName: string,
-        lastName: string,
-        email: string,
-        password: string,
-        image?: string
-    ) {
+    constructor(firstName: string, lastName: string, email: string, password: string) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.image = image;
+        this.image = `${process.env.DICEBEAR_URL}${Date.now()}${this.firstName}${
+            this.lastName
+        }.svg`;
     }
 
     @Field()

@@ -30,7 +30,7 @@ export class PostResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Query(() => Post, { nullable: true })
-    async getPost(@Arg('data') { id }: IdInput): Promise<Post | null> {
+    getPost(@Arg('data') { id }: IdInput): Promise<Post | null> {
         return Post.findOne(id);
     }
 
@@ -38,10 +38,10 @@ export class PostResolver {
     @UseMiddleware(LogAccess, ResolveTime)
     @Mutation(() => Post)
     async createPost(
-        @Arg('data') { content, image, isPrivate }: CreatePostInput,
+        @Arg('data') { content, isPrivate }: CreatePostInput,
         @Ctx() { user }: IContext
     ): Promise<Post> {
-        const post = new Post(content, user, isPrivate, image);
+        const post = new Post(content, user, isPrivate);
         await post.save();
         await post.reload();
         return post;

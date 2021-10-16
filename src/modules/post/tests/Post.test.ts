@@ -12,7 +12,6 @@ const createPostMutation = `
         ) {
             id
             content
-            image
             isPrivate
             user {
                 id
@@ -44,7 +43,6 @@ export const CreatePostTest = () => {
                     content: post.content,
                     id: '1',
                     isPrivate: post.isPrivate,
-                    image: null,
                     user: {
                         id: '1'
                     },
@@ -199,7 +197,6 @@ const getPostQuery = `
         getPost(data: $data) {
             id
             content
-            image
             isPrivate
             likes
             user {
@@ -224,7 +221,6 @@ const getPostsQuery = `
             results {
                 id
                 content
-                image
                 isPrivate
                 user {
                     id
@@ -263,7 +259,6 @@ export const GetPostTest = () => {
                 getPost: {
                     id: '1',
                     content: post.content,
-                    image: null,
                     isPrivate: post.isPrivate,
                     likes: 1,
                     user: {
@@ -305,7 +300,6 @@ export const GetPostTest = () => {
                         {
                             id: '1',
                             content: post.content,
-                            image: null,
                             isPrivate: post.isPrivate,
                             likes: 1,
                             user: {

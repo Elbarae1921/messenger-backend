@@ -7,21 +7,16 @@ import { Comment } from './Comment';
 @ObjectType()
 @Entity('posts')
 export class Post extends AbstractEntity {
-    constructor(content: string, user: User, isPrivate: boolean, image?: string) {
+    constructor(content: string, user: User, isPrivate: boolean) {
         super();
         this.content = content;
         this.user = user;
-        this.image = image;
         this.isPrivate = isPrivate;
     }
 
     @Field()
     @Column()
     content: string;
-
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    image: string;
 
     @Field()
     @Column()
