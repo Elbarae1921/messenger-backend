@@ -17,7 +17,7 @@ query Me {
 `;
 
 export const MeTest = () => {
-    it('gets user', async () => {
+    it('should get user', async () => {
         const con = getConnection();
 
         const userData = {
@@ -46,7 +46,7 @@ export const MeTest = () => {
         });
     });
 
-    it('return null', async () => {
+    it('should return null', async () => {
         const response = await gqlCall({
             source: meQuery
         });

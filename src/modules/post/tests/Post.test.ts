@@ -29,7 +29,7 @@ const createPostMutation = `
 `;
 
 export const CreatePostTest = () => {
-    it('creates a post', async () => {
+    it('should create a post', async () => {
         const response = await gqlCall({
             source: createPostMutation,
             variableValues: {
@@ -92,7 +92,7 @@ const comment = {
 };
 
 export const CommentAndLikeTest = () => {
-    it('likes a post', async () => {
+    it('should like a post', async () => {
         const response = await gqlCall({
             source: likePostMutation,
             variableValues: {
@@ -110,7 +110,7 @@ export const CommentAndLikeTest = () => {
         });
     });
 
-    it('unlikes a post', async () => {
+    it('should unlike a post', async () => {
         const response = await gqlCall({
             source: unlikePostMutation,
             variableValues: {
@@ -139,7 +139,7 @@ export const CommentAndLikeTest = () => {
         });
     });
 
-    it('comments a post', async () => {
+    it('should comment a post', async () => {
         const response = await gqlCall({
             source: commentPostMutation,
             variableValues: {
@@ -164,7 +164,7 @@ export const CommentAndLikeTest = () => {
         });
     });
 
-    it('deletes a comment', async () => {
+    it('should delete a comment', async () => {
         await gqlCall({
             source: commentPostMutation,
             variableValues: {
@@ -247,7 +247,7 @@ const getPostsQuery = `
 `;
 
 export const GetPostTest = () => {
-    it('gets one post', async () => {
+    it('should get one post', async () => {
         const response = await gqlCall({
             source: getPostQuery,
             variableValues: {
@@ -287,7 +287,7 @@ export const GetPostTest = () => {
         });
     });
 
-    it('gets multiple posts', async () => {
+    it('should get multiple posts', async () => {
         const response = await gqlCall({
             source: getPostsQuery,
             variableValues: {
@@ -339,7 +339,7 @@ const deletePostMutation = `
 `;
 
 export const DeletePostTest = () => {
-    it('deletes post', async () => {
+    it('should delete post', async () => {
         const response = await gqlCall({
             source: deletePostMutation,
             variableValues: {

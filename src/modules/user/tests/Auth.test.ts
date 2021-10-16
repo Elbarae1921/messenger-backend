@@ -29,7 +29,7 @@ mutation Register($data: RegisterInput!) {
 `;
 
 export const RegisterTest = () => {
-    it('creates a user', async () => {
+    it('should create a user', async () => {
         const con = getConnection();
 
         const response = await gqlCall({
@@ -75,7 +75,7 @@ mutation Login($data: LoginInput!) {
 `;
 
 export const LoginTest = () => {
-    it('logs in a user', async () => {
+    it('should log in a user', async () => {
         const loginResponse = await gqlCall({
             source: loginMutation,
             variableValues: {

@@ -35,7 +35,7 @@ export class UserResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Query(() => [User])
-    async searchUsers(@Arg('data') { term }: SearchUsersInput): Promise<User[]> {
+    searchUsers(@Arg('data') { term }: SearchUsersInput): Promise<User[]> {
         return User.find({
             where: [{ lastName: Like(`%${term}%`) }, { firstName: Like(`%${term}%`) }]
         });
