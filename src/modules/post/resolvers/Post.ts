@@ -1,5 +1,5 @@
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
-import { LessThan } from 'typeorm';
+import { In, LessThan } from 'typeorm';
 import { Post } from '../../../entities/Post';
 import { LogAccess, ResolveTime } from '../../../middlewares';
 import { IContext } from '../../../types/Context';
@@ -14,9 +14,21 @@ export class PostResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Query(() => GetPostsOutput)
-    async getPosts(@Arg('data') { limit, cursor }: PaginationInput): Promise<GetPostsOutput> {
-        const where = {};
-        if (cursor) where['id'] = LessThan(cursor);
+    async getPosts(
+        @Arg('data') { limit, cursor }: PaginationInput,
+        @Ctx() { user }: IContext
+    ): Promise<GetPostsOutput> {
+        const friends = await user.friends;
+        const where = [
+            {
+                isPrivate: false
+            },
+            {
+                isPrivate: true,
+                user: In(friends.map(friend => friend.id))
+            }
+        ];
+        if (cursor) where.map(x => ({ ...x, id: LessThan(cursor) }));
         const results = await Post.find({
             where,
             order: {
