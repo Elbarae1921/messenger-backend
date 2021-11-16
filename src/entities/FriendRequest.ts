@@ -4,7 +4,7 @@ import { AbstractEntity } from './AbstractEntity';
 import { User } from './User';
 
 @ObjectType()
-@Entity()
+@Entity('friend_request')
 export class FriendRequest extends AbstractEntity {
     constructor(sender: User, receiver: User) {
         super();
