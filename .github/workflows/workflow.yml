@@ -37,18 +37,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       # Step 1
-      - name: Build shared docker image
-        uses: docker/build-push-action@v2
-        with:
-          tags: messenger-shared
-          file: Dockerfile.shared
+      # - name: Build shared docker image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     tags: messenger-shared:latest,ghcr.io/elbarae1921/messenger-shared:latest
+      #     file: Dockerfile.shared
+      #     push: true
       # Step 3
       - name: Build & publish graphql server
         uses: docker/build-push-action@v2
         with:
           tags: ghcr.io/elbarae1921/mgraphql:latest
           push: true
-          context: packages/mgraphql
+          context: ./packages/mgraphql
       # # Step 4
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
