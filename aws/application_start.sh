@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /home/elbarae/messenger-backend
-docker-compose build
+docker image prune -f
