@@ -1,0 +1,25 @@
+{
+    "name": "@messenger/common",
+    "version": "1.0.0",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "rimraf dist && tsc",
+        "format": "prettier --write \"{src,test}/**/*.ts\"",
+        "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    },
+    "dependencies": {
+        "type-graphql": "^1.1.1",
+        "typeorm": "0.2.37"
+    },
+    "devDependencies": {
+        "rimraf": "^3.0.2",
+        "typescript": "^4.4.3",
+        "@typescript-eslint/eslint-plugin": "^4.32.0",
+        "@typescript-eslint/parser": "^4.32.0",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "prettier": "^2.4.1"
+    }
+}

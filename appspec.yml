@@ -5,10 +5,10 @@ files:
       destination: /home/elbarae/messenger-backend
 hooks:
     AfterInstall:
-        - location: scripts/update_image.sh
+        - location: .aws/update_image.sh
           timeout: 300
           runas: elbarae
     ApplicationStart:
-        - location: scripts/restart_container.sh
+        - location: .aws/restart_container.sh
           timeout: 300
           runas: elbarae
