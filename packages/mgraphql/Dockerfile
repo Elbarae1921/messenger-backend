@@ -1,4 +1,4 @@
-FROM messenger-shared as build
+FROM ghcr.io/elbarae1921/messenger-shared:latest as build
 
 
 FROM node:16-alpine
