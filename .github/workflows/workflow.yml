@@ -49,19 +49,20 @@ jobs:
         with:
           tags: ghcr.io/elbarae1921/mgraphql:latest
           push: true
-      # Step 4
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-2
-      # Step 5
-      - name: Create CodeDeploy Deployment
-        id: deploy
-        run: |
-          aws deploy create-deployment \
-            --application-name skeduler-deploy \
-            --deployment-group-name SkedulerDeploymentGroup \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+          context: packages/mgraphql
+      # # Step 4
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: eu-west-2
+      # # Step 5
+      # - name: Create CodeDeploy Deployment
+      #   id: deploy
+      #   run: |
+      #     aws deploy create-deployment \
+      #       --application-name skeduler-deploy \
+      #       --deployment-group-name SkedulerDeploymentGroup \
+      #       --deployment-config-name CodeDeployDefault.OneAtATime \
+      #       --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
