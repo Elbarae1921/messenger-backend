@@ -41,6 +41,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: messenger-shared
+          file: Dockerfile.shared
       # Step 3
       - name: Build & publish graphql server
         uses: docker/build-push-action@v2
