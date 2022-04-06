@@ -16,9 +16,7 @@ services:
   messenger-graphql:
     container_name: messenger
     restart: always
-    build:
-      context: 'packages/mgraphql'
-      dockerfile: 'Dockerfile'
+    image: ghcr.io/elbarae1921/mgraphql:latest
     env_file: packages/mgraphql/.env.prod
     ports:
       - 4000:4000
