@@ -4,25 +4,25 @@ on:
     branches: [master]
 
 jobs:
-  continuous-integration:
-    runs-on: ubuntu-latest
-    steps:
-      # Step 1
-      - uses: actions/checkout@v2
-      # Step 2
-      - name: Set up Node 16.x
-        uses: actions/setup-node@v2
-        with:
-            node-version: 16.x
-      # Step 3
-      - name: Install dependencies
-        run: yarn
-      # Step 5
-      - name: Lint
-        run: yarn lint
-      # Step 6
-      - name: Run tests
-        run: yarn test
+  # continuous-integration:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # Step 1
+  #     - uses: actions/checkout@v2
+  #     # Step 2
+  #     - name: Set up Node 16.x
+  #       uses: actions/setup-node@v2
+  #       with:
+  #           node-version: 16.x
+  #     # Step 3
+  #     - name: Install dependencies
+  #       run: yarn
+  #     # Step 5
+  #     - name: Lint
+  #       run: yarn lint
+  #     # Step 6
+  #     - name: Run tests
+  #       run: yarn test
 
   continuous-deployment:
     runs-on: ubuntu-latest
