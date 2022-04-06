@@ -29,6 +29,8 @@ jobs:
     # needs: [continuous-integration]
     if: github.ref == 'refs/heads/master'
     steps:
+      # Step 1
+      - uses: actions/checkout@v2
       # Step 2
       - name: Login to DockerHub
         uses: docker/login-action@v1
