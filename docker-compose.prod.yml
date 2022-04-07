@@ -14,7 +14,7 @@ services:
       - messenger_net
 
   messenger-graphql:
-    container_name: messenger
+    container_name: messenger-graphql
     restart: always
     image: ghcr.io/elbarae1921/mgraphql:latest
     env_file: packages/mgraphql/.env.prod
