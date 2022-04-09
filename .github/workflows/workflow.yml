@@ -20,12 +20,12 @@ jobs:
       # Step 5
       - name: Lint
         run: yarn lint
-      # Step 6
-      - name: Run tests
-        run: yarn test
       # Step 7
       - name: Build
         run: yarn build
+      # Step 6
+      - name: Run tests
+        run: yarn test
 
   continuous-deployment:
     runs-on: ubuntu-latest
