@@ -12,8 +12,6 @@ import { createSchema } from './utils/createSchema';
 const main = async () => {
     const connection = await createConnection();
 
-    console.log(connection.options);
-
     const app = Express();
 
     const schema = await createSchema();

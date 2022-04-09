@@ -53,6 +53,11 @@
         "start": "ts-node src/index.ts",
         "start:dev": "nodemon src/index.ts",
         "build": "tsc",
-        "start:prod": "node dist/index.js"
+        "start:prod": "node dist/index.js",
+        "migration:generate": "ts-node --project tsconfig.json ../../node_modules/typeorm/cli.js migration:generate -n",
+        "migration:up": "ts-node --project tsconfig.json ../../node_modules/typeorm/cli.js migration:run",
+        "migration:up:prod": "typeorm migration:run",
+        "migration:down": "ts-node --project tsconfig.json ../../node_modules/typeorm/cli.js migration:revert",
+        "migration:down:prod": "typeorm migration:revert"
     }
 }
