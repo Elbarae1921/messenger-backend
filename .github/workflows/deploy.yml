@@ -21,7 +21,7 @@ jobs:
       - name: Build shared docker image
         uses: docker/build-push-action@v2
         with:
-          tags: ghcr.io/elbarae1921/messenger-shared:latest,ghcr.io/elbarae1921/messenger-shared:${{ github.event.release.tag_name }}
+          tags: ghcr.io/elbarae1921/messenger-shared:latest,ghcr.io/elbarae1921/messenger-shared:${{ github.ref }}
           file: Dockerfile.shared
           push: true
           cache-from: type=registry,ref=ghcr.io/elbarae1921/messenger-shared:latest
@@ -30,7 +30,7 @@ jobs:
       - name: Build & publish graphql server
         uses: docker/build-push-action@v2
         with:
-          tags: ghcr.io/elbarae1921/mgraphql:latest,ghcr.io/elbarae1921/mgraphql:${{ github.event.release.tag_name }}
+          tags: ghcr.io/elbarae1921/mgraphql:latest,ghcr.io/elbarae1921/mgraphql:${{ github.ref }}
           push: true
           context: ./packages/mgraphql
           cache-from: type=registry,ref=ghcr.io/elbarae1921/mgraphql:latest
