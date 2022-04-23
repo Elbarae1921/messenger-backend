@@ -1,33 +1,11 @@
-name: CI/CD Pipeline
+name: Build and Deploy
 on:
   push:
-    branches: [master]
+    tags:
+      - "v**.**.**"
 
 jobs:
-  continuous-integration:
-    runs-on: ubuntu-latest
-    steps:
-      # Step 1
-      - uses: actions/checkout@v2
-      # Step 2
-      - name: Set up Node 16.x
-        uses: actions/setup-node@v2
-        with:
-            node-version: 16.x
-      # Step 3
-      - name: Install dependencies
-        run: yarn
-      # Step 5
-      - name: Lint
-        run: yarn lint
-      # Step 7
-      - name: Build
-        run: yarn build
-      # Step 6
-      - name: Run tests
-        run: yarn test
-
-  continuous-deployment:
+  build-and-deploy:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
     if: github.ref == 'refs/heads/master'
@@ -45,7 +23,7 @@ jobs:
       - name: Build shared docker image
         uses: docker/build-push-action@v2
         with:
-          tags: ghcr.io/elbarae1921/messenger-shared:latest
+          tags: ghcr.io/elbarae1921/messenger-shared:latest,ghcr.io/elbarae1921/messenger-shared:${{ github.event.release.tag_name }}
           file: Dockerfile.shared
           push: true
           cache-from: type=registry,ref=ghcr.io/elbarae1921/messenger-shared:latest
@@ -54,11 +32,18 @@ jobs:
       - name: Build & publish graphql server
         uses: docker/build-push-action@v2
         with:
-          tags: ghcr.io/elbarae1921/mgraphql:latest
+          tags: ghcr.io/elbarae1921/mgraphql:latest,ghcr.io/elbarae1921/mgraphql:${{ github.event.release.tag_name }}
           push: true
           context: ./packages/mgraphql
           cache-from: type=registry,ref=ghcr.io/elbarae1921/mgraphql:latest
           cache-to: type=inline
+      # Step 6
+      - name: Create Github Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: TODO
       # Step 5
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
