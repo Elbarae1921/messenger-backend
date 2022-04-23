@@ -1,9 +1,9 @@
 {
     "license": "MIT",
     "name": "@messenger/mgraphql",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "dependencies": {
-        "@messenger/common": "^1.1.4",
+        "@messenger/common": "^1.1.5",
         "apollo-server-core": "^3.3.0",
         "apollo-server-express": "^3.3.0",
         "bcrypt": "^5.0.1",
