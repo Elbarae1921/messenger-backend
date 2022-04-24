@@ -33,7 +33,6 @@
     "pretest": "rm -rf messenger",
     "start": "ts-node src/index.ts",
     "start:dev": "nodemon src/index.ts",
-    "start:prod": "node dist/index.js",
-    "test": "jest test/app.test.ts"
+    "start:prod": "node dist/index.js"
   }
 }
