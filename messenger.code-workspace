@@ -1,19 +1,20 @@
 {
-	"folders": [
-		{
-			"path": "packages/mgraphql"
-		},
-		{
-			"path": "packages/mwebsockets"
-		},
-		{
-			"path": "packages/common"
-		}
-	],
-    "settings": {
-        "editor.formatOnSave": true,
-        "cSpell.words": [
-            "DICEBEAR"
-        ]
+  "folders": [
+    {
+      "path": "packages/mgraphql"
+    },
+    {
+      "path": "packages/mwebsockets"
+    },
+    {
+      "path": "packages/common"
+    },
+    {
+      "path": "packages/frontend"
     }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "cSpell.words": ["DICEBEAR"]
+  }
 }
