@@ -1,33 +1,36 @@
 {
-    "name": "messenger-backend",
-    "private": true,
-    "workspaces": {
-        "packages": ["packages/*"]
-    },
-    "scripts": {
-        "test": "lerna run test --stream --concurrency=1",
-        "build": "lerna run build --stream --concurrency=1",
-        "format": "lerna run format --stream --concurrency=1",
-        "lint": "lerna run lint --stream --concurrency=1",
-        "start": "lerna run start --stream --concurrency=1",
-        "start:dev": "lerna run start:dev --stream --concurrency=1",
-        "start:prod": "lerna run start:prod --stream --concurrency=1",
-        "new-version": "lerna version --conventional-commits --yes",
-        "migration:generate": "lerna run --scope @messenger/mgraphql migration:generate --",
-        "migration:up": "lerna run --scope @messenger/mgraphql migration:up",
-        "migration:up:prod": "lerna run --scope @messenger/mgraphql migration:up:prod",
-        "migration:down": "lerna run --scope @messenger/mgraphql migration:down",
-        "migration:down:prod": "lerna run --scope @messenger/mgraphql migration:down:prod",
-        "schema:drop": "ts-node --project packages/common/tsconfig.json ./node_modules/typeorm/cli.js schema:drop",
-        "schema:sync": "ts-node --project packages/common/tsconfig.json ./node_modules/typeorm/cli.js schema:sync",
-        "docker:compose": "docker-compose up -d --build",
-        "docker:restart": "docker-compose restart",
-        "docker:up": "docker build -f Dockerfile.shared -t messenger-shared . && docker-compose up -d --build",
-        "docker:stop": "docker-compose stop",
-        "docker:down": "docker-compose down",
-        "docker:db": "docker-compose --file db.compose.yml up -d"
-    },
-    "devDependencies": {
-        "lerna": "^4.0.0"
-    }
+  "name": "messenger-backend",
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "syncpack": "^6.2.1"
+  },
+  "private": true,
+  "scripts": {
+    "build": "lerna run build --stream --concurrency=1",
+    "docker:compose": "docker-compose up -d --build",
+    "docker:db": "docker-compose --file db.compose.yml up -d",
+    "docker:down": "docker-compose down",
+    "docker:restart": "docker-compose restart",
+    "docker:stop": "docker-compose stop",
+    "docker:up": "docker build -f Dockerfile.shared -t messenger-shared . && docker-compose up -d --build",
+    "format": "lerna run format --stream --concurrency=1",
+    "lint": "lerna run lint --stream --concurrency=1",
+    "migration:down": "lerna run --scope @messenger/mgraphql migration:down",
+    "migration:down:prod": "lerna run --scope @messenger/mgraphql migration:down:prod",
+    "migration:generate": "lerna run --scope @messenger/mgraphql migration:generate --",
+    "migration:up": "lerna run --scope @messenger/mgraphql migration:up",
+    "migration:up:prod": "lerna run --scope @messenger/mgraphql migration:up:prod",
+    "new-version": "lerna version --conventional-commits --yes",
+    "schema:drop": "ts-node --project packages/common/tsconfig.json ./node_modules/typeorm/cli.js schema:drop",
+    "schema:sync": "ts-node --project packages/common/tsconfig.json ./node_modules/typeorm/cli.js schema:sync",
+    "start": "lerna run start --stream --concurrency=1",
+    "start:dev": "lerna run start:dev --stream --concurrency=1",
+    "start:prod": "lerna run start:prod --stream --concurrency=1",
+    "test": "lerna run test --stream --concurrency=1"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
 }

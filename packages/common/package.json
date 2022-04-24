@@ -1,25 +1,25 @@
 {
-    "name": "@messenger/common",
-    "version": "1.1.6",
-    "license": "MIT",
-    "main": "dist/index.js",
-    "scripts": {
-        "build": "rimraf dist && tsc",
-        "format": "prettier --write \"{src,test}/**/*.ts\"",
-        "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
-    },
-    "dependencies": {
-        "type-graphql": "^1.1.1",
-        "typeorm": "0.2.37"
-    },
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.32.0",
-        "@typescript-eslint/parser": "^4.32.0",
-        "eslint": "^7.32.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "prettier": "^2.4.1",
-        "rimraf": "^3.0.2",
-        "typescript": "^4.4.3"
-    }
+  "name": "@messenger/common",
+  "version": "1.1.6",
+  "dependencies": {
+    "type-graphql": "^1.1.1",
+    "typeorm": "0.2.37"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^5.10.2",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "format": "prettier --write \"{src,test}/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+  }
 }
