@@ -1,16 +1,18 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import { AuthProvider } from './contexts/AuthContext';
+import { AppRouter } from './router/AppRouter';
 import { GlobalStyles } from './styles/GlobalStyles';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <div style={{ textAlign: 'center' }}>
-        <h1>Hello world!</h1>
-        <a className="link" href="/">
-          Messenger
-        </a>
-        <p>Coming soon</p>
-      </div>
+      <Router>
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
+      </Router>
     </>
   );
 }
