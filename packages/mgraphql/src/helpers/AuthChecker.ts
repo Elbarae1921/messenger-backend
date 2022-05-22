@@ -3,16 +3,17 @@ import { User } from '@messenger/common';
 import { IContext } from '../types/Context';
 
 export const AuthenticationChecker: AuthChecker<IContext> = async ({ context }) => {
-    if (!context?.jwtPayload?.userId) {
+    if (!context.req.session.userId) {
         return false;
     }
 
-    const user = await User.findOne(context.jwtPayload.userId);
+    const user = await User.findOne(context.req.session.userId);
 
     if (!user) {
         return false;
     }
 
-    context.user = user;
+    context.req.user = user;
+
     return true;
 };

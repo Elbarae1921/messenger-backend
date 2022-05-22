@@ -13,7 +13,7 @@ export class CommentResolver {
     @Mutation(() => Comment)
     async createComment(
         @Arg('data') { content, id }: CreateCommentInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<Comment> {
         const post = await Post.findOne(id);
         if (!post) {
@@ -28,7 +28,10 @@ export class CommentResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Mutation(() => Boolean)
-    async deleteComment(@Arg('data') { id }: IdInput, @Ctx() { user }: IContext): Promise<boolean> {
+    async deleteComment(
+        @Arg('data') { id }: IdInput,
+        @Ctx() { req: { user } }: IContext
+    ): Promise<boolean> {
         const comment = await Comment.findOne(id);
         if (!comment) {
             throw new Error('Comment not found');

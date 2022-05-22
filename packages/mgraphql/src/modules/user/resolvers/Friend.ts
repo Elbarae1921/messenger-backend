@@ -17,7 +17,7 @@ export class FriendResolver {
     @Query(() => GetFriendsOutput)
     async getFriends(
         @Arg('data') { cursor, limit }: PaginationInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<IPaginatedResponse<User>> {
         const friends = await user.friends;
         if (friends.length) {
@@ -36,7 +36,7 @@ export class FriendResolver {
     @Query(() => GetFriendRequestsOutput)
     async getFriendRequests(
         @Arg('data') { limit, cursor }: PaginationInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<IPaginatedResponse<FriendRequest>> {
         const where = {
             receiver: {
@@ -61,7 +61,7 @@ export class FriendResolver {
     @Mutation(() => Boolean)
     async sendFriendRequest(
         @Arg('data') { id }: IdInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<boolean> {
         const friend = await User.findOne(id);
         if (!friend) {
@@ -94,7 +94,7 @@ export class FriendResolver {
     @Mutation(() => Boolean)
     async acceptFriendRequest(
         @Arg('data') { id }: IdInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<boolean> {
         const request = await FriendRequest.findOne(id);
         if (!request || request.receiver.id !== user.id) {
@@ -115,7 +115,7 @@ export class FriendResolver {
     @Mutation(() => Boolean)
     async cancelOrDeclineFriendRequest(
         @Arg('data') { id }: IdInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<boolean> {
         const request = await FriendRequest.findOne(id);
         if (!request || (request.receiver.id !== user.id && request.sender.id !== user.id)) {
@@ -130,7 +130,10 @@ export class FriendResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Mutation(() => Boolean)
-    async removeFriend(@Arg('data') { id }: IdInput, @Ctx() { user }: IContext): Promise<boolean> {
+    async removeFriend(
+        @Arg('data') { id }: IdInput,
+        @Ctx() { req: { user } }: IContext
+    ): Promise<boolean> {
         const friend = await User.findOne(id);
         if (!friend) {
             throw new Error('Friend not found');

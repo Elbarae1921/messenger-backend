@@ -15,6 +15,6 @@
   ],
   "settings": {
     "editor.formatOnSave": true,
-    "cSpell.words": ["DICEBEAR"]
+    "cSpell.words": ["codegen", "DICEBEAR", "formik", "reduxjs", "vitejs"]
   }
 }

@@ -1,6 +1,4 @@
 {
     "editor.formatOnSave": true,
-    "cSpell.words": [
-        "DICEBEAR"
-    ]
+    "prettier.tabWidth": 4
 }
