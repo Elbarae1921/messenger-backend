@@ -23,7 +23,6 @@ mutation Register($data: RegisterInput!) {
             fullName
             email
         }
-        jwt
     }
 }
 `;
@@ -46,8 +45,7 @@ export const RegisterTest = () => {
                         lastName: user.lastName,
                         fullName: `${user.firstName} ${user.lastName}`,
                         email: user.email
-                    },
-                    jwt: expect.any(String)
+                    }
                 }
             }
         });
@@ -69,7 +67,6 @@ mutation Login($data: LoginInput!) {
             fullName
             email
         }
-        jwt
     }
 }
 `;
@@ -94,8 +91,7 @@ export const LoginTest = () => {
                         lastName: user.lastName,
                         fullName: `${user.firstName} ${user.lastName}`,
                         email: user.email
-                    },
-                    jwt: expect.any(String)
+                    }
                 }
             }
         });

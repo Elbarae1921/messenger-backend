@@ -23,12 +23,9 @@ export const gqlCall = async ({ source, variableValues, userId }: Props) => {
         variableValues,
         contextValue: {
             req: {
-                user: {
+                session: {
                     userId
                 }
-            },
-            jwtPayload: {
-                userId
             }
         }
     });
