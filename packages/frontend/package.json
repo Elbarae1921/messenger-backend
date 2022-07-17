@@ -50,7 +50,7 @@
   "private": true,
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "vite",
+    "start:dev": "vite",
     "preview": "vite preview",
     "test": "jest"
   }

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useMeQuery } from '../api/generated';
+import { routes } from '../router/routes';
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -12,8 +13,7 @@ export const useAuth = () => {
     if (
       !data?.me?.id &&
       !loading &&
-      location.pathname !== '/login' &&
-      location.pathname !== '/register'
+      routes.public.find(route => route.path === location.pathname)
     ) {
       return navigate('/login');
     }

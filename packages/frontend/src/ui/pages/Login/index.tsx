@@ -18,7 +18,7 @@ export const Login = () => {
       <h1>Login</h1>
       {error && <p>{error}</p>}
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: 'elbarae1921@gmail.com', password: 'password' }}
         validationSchema={validationSchema}
         onSubmit={async ({ email, password }) => {
           setError('');

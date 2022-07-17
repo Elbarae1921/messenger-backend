@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { useAuth } from '../hooks/useAuth';
-import { Login } from '../ui/pages/Login';
 import { routes } from './routes';
 
 export const AppRouter = () => {
@@ -18,7 +17,6 @@ export const AppRouter = () => {
           {routes.public.map(route => (
             <Route key={route.path} {...route} />
           ))}
-          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </>
       )}

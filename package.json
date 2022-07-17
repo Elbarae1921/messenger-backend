@@ -23,9 +23,9 @@
     "new-version": "lerna version --conventional-commits --yes",
     "schema:drop": "ts-node --project packages/common/tsconfig.json ./node_modules/typeorm/cli.js schema:drop",
     "schema:sync": "ts-node --project packages/common/tsconfig.json ./node_modules/typeorm/cli.js schema:sync",
-    "start": "lerna run start --stream --concurrency=1",
-    "start:dev": "lerna run start:dev --stream --concurrency=1",
-    "start:prod": "lerna run start:prod --stream --concurrency=1",
+    "start": "lerna run start --stream --concurrency=2",
+    "start:dev": "lerna run start:dev --stream --concurrency=2",
+    "start:prod": "lerna run start:prod --stream --concurrency=2",
     "test": "lerna run test --stream --concurrency=1"
   },
   "workspaces": {
