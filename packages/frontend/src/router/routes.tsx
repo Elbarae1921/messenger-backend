@@ -1,7 +1,8 @@
 import { Navigate } from 'react-router-dom';
 
-import { Home } from '../ui/pages/Home';
-import { Login } from '../ui/pages/Login';
+import { Home } from '@/components/pages/home';
+import { Login } from '@/components/pages/login';
+import { Register } from '@/components/pages/register';
 
 interface Route {
   path: string;
@@ -18,6 +19,10 @@ export const routes: AppRoutes = {
     {
       path: '/login',
       element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
     }
   ],
   private: [

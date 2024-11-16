@@ -230,6 +230,44 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type LogoutMutation = { __typename?: 'Mutation'; logout: boolean };
 
+export type RegisterMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+}>;
+
+export type RegisterMutation = {
+  __typename?: 'Mutation';
+  register: { __typename?: 'LoginOutput'; user: { __typename?: 'User'; id: string } };
+};
+
+export type GetPostsQueryVariables = Exact<{
+  data: PaginationInput;
+}>;
+
+export type GetPostsQuery = {
+  __typename?: 'Query';
+  getPosts: {
+    __typename?: 'GetPostsOutput';
+    results: Array<{
+      __typename?: 'Post';
+      id: string;
+      content: string;
+      isPrivate: boolean;
+      likes: number;
+      user: { __typename?: 'User'; id: string; fullName: string; image?: string | null };
+      likers: Array<{ __typename?: 'User'; id: string; fullName: string; image?: string | null }>;
+      comments: Array<{
+        __typename?: 'Comment';
+        id: string;
+        content: string;
+        user: { __typename?: 'User'; id: string; fullName: string; image?: string | null };
+      }>;
+    }>;
+  };
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -321,6 +359,117 @@ export type LogoutMutationOptions = Apollo.BaseMutationOptions<
   LogoutMutation,
   LogoutMutationVariables
 >;
+export const RegisterDocument = gql`
+  mutation Register($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
+    register(
+      data: { email: $email, password: $password, firstName: $firstName, lastName: $lastName }
+    ) {
+      user {
+        id
+      }
+    }
+  }
+`;
+export type RegisterMutationFn = Apollo.MutationFunction<
+  RegisterMutation,
+  RegisterMutationVariables
+>;
+
+/**
+ * __useRegisterMutation__
+ *
+ * To run a mutation, you first call `useRegisterMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerMutation, { data, loading, error }] = useRegisterMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
+ *   },
+ * });
+ */
+export function useRegisterMutation(
+  baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
+}
+export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
+export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<
+  RegisterMutation,
+  RegisterMutationVariables
+>;
+export const GetPostsDocument = gql`
+  query GetPosts($data: PaginationInput!) {
+    getPosts(data: $data) {
+      results {
+        id
+        content
+        isPrivate
+        likes
+        user {
+          id
+          fullName
+          image
+        }
+        likers {
+          id
+          fullName
+          image
+        }
+        comments {
+          id
+          content
+          user {
+            id
+            fullName
+            image
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetPostsQuery__
+ *
+ * To run a query within a React component, call `useGetPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsQuery({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useGetPostsQuery(
+  baseOptions: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+}
+export function useGetPostsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+}
+export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
+export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const MeDocument = gql`
   query Me {
     me {

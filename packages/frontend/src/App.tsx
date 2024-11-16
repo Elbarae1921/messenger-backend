@@ -1,16 +1,21 @@
+import './index.css';
+
+import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AppProviders } from './AppProviders';
+import { Toaster } from './components/ui/toaster';
 import { AppRouter } from './router/AppRouter';
+import { client } from './utils/apolloClient';
 
 function App() {
   return (
     <>
-      <AppProviders>
-        <Router>
+      <Router>
+        <ApolloProvider client={client}>
           <AppRouter />
-        </Router>
-      </AppProviders>
+          <Toaster />
+        </ApolloProvider>
+      </Router>
     </>
   );
 }
