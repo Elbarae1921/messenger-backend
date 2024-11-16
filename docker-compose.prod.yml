@@ -13,6 +13,15 @@ services:
     networks:
       - messenger_net
 
+  redis:
+    container_name: messenger_redis
+    image: redis:latest
+    ports:
+      - ${REDIS_PORT}:6379
+    env_file: .env.prod
+    networks:
+      - messenger_net
+
   messenger-graphql:
     container_name: messenger-graphql
     restart: always

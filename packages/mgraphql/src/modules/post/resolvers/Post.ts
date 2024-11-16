@@ -16,7 +16,7 @@ export class PostResolver {
     @Query(() => GetPostsOutput)
     async getPosts(
         @Arg('data') { limit, cursor }: PaginationInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<GetPostsOutput> {
         const friends = await user.friends;
         const where = [
@@ -51,7 +51,7 @@ export class PostResolver {
     @Mutation(() => Post)
     async createPost(
         @Arg('data') { content, isPrivate }: CreatePostInput,
-        @Ctx() { user }: IContext
+        @Ctx() { req: { user } }: IContext
     ): Promise<Post> {
         const post = new Post(content, user, isPrivate);
         await post.save();
@@ -62,7 +62,10 @@ export class PostResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Mutation(() => Boolean)
-    async deletePost(@Arg('data') { id }: IdInput, @Ctx() { user }: IContext): Promise<boolean> {
+    async deletePost(
+        @Arg('data') { id }: IdInput,
+        @Ctx() { req: { user } }: IContext
+    ): Promise<boolean> {
         const post = await Post.findOne(id);
         if (!post) {
             throw new Error('Post not found');

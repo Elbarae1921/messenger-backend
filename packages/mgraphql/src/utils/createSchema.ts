@@ -23,6 +23,13 @@ export const createSchema = async (): Promise<GraphQLSchema> => {
             UserResolver,
             CommentResolver
         ],
+        validate: {
+            whitelist: true,
+            validationError: {
+                target: true,
+                value: false
+            }
+        },
         authChecker: AuthenticationChecker
     });
 };

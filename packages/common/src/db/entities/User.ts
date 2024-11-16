@@ -14,9 +14,7 @@ export class User extends AbstractEntity {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.image = `${process.env.DICEBEAR_URL}${Date.now()}${this.firstName}${
-            this.lastName
-        }.svg`;
+        this.image = `${process.env.DICEBEAR_URL}${Date.now()}${this.firstName}${this.lastName}`;
     }
 
     @Field()

@@ -1,0 +1,29 @@
+query GetPosts($data: PaginationInput!) {
+  getPosts(data: $data) {
+    results {
+      id
+      content
+      isPrivate
+      likes
+      user {
+        id
+        fullName
+        image
+      }
+      likers {
+        id
+        fullName
+        image
+      }
+      comments {
+        id
+        content
+        user {
+          id
+          fullName
+          image
+        }
+      }
+    }
+  }
+}

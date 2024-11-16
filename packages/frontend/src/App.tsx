@@ -1,17 +1,20 @@
+import './index.css';
+
+import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AuthProvider } from './contexts/AuthContext';
+import { Toaster } from './components/ui/toaster';
 import { AppRouter } from './router/AppRouter';
-import { GlobalStyles } from './styles/GlobalStyles';
+import { client } from './utils/apolloClient';
 
 function App() {
   return (
     <>
-      <GlobalStyles />
       <Router>
-        <AuthProvider>
+        <ApolloProvider client={client}>
           <AppRouter />
-        </AuthProvider>
+          <Toaster />
+        </ApolloProvider>
       </Router>
     </>
   );

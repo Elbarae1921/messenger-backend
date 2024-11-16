@@ -5,7 +5,4 @@ import { User } from '@messenger/common';
 export class LoginOutput {
     @Field(() => User)
     user: User;
-
-    @Field()
-    jwt: string;
 }

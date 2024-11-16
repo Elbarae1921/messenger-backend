@@ -21,9 +21,9 @@ export class UserResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Query(() => User, { nullable: true })
-    async getUser(@Arg('data') { id }: IdInput, @Ctx() { user }: IContext): Promise<User | null> {
-        if (user.id === id) {
-            return user;
+    async getUser(@Arg('data') { id }: IdInput, @Ctx() { req }: IContext): Promise<User | null> {
+        if (req.session.userId === id) {
+            return req.user;
         }
         const otherUser = await User.findOne(id);
         if (!otherUser) {
@@ -42,7 +42,7 @@ export class UserResolver {
     }
 
     @FieldResolver(() => Boolean)
-    async inviting(@Root() parent: User, @Ctx() { user }: IContext): Promise<boolean> {
+    async inviting(@Root() parent: User, @Ctx() { req: { user } }: IContext): Promise<boolean> {
         // get friend requests sent to the parent, and check if the parent is the sender
         const friendRequestsSent = await FriendRequest.find({
             where: { sender: { id: parent.id } }
@@ -51,7 +51,7 @@ export class UserResolver {
     }
 
     @FieldResolver(() => Boolean)
-    async invited(@Root() parent: User, @Ctx() { user }: IContext): Promise<boolean> {
+    async invited(@Root() parent: User, @Ctx() { req: { user } }: IContext): Promise<boolean> {
         // get friend requests sent by the parent, and check if the current user is the receiver
         const friendRequestsReceived = await FriendRequest.find({
             where: { receiver: { id: parent.id } }
@@ -60,7 +60,7 @@ export class UserResolver {
     }
 
     @FieldResolver(() => Boolean)
-    async friend(@Root() parent: User, @Ctx() { user }: IContext): Promise<boolean> {
+    async friend(@Root() parent: User, @Ctx() { req: { user } }: IContext): Promise<boolean> {
         return !!(await parent.friends).find(x => x.id === user.id);
     }
 }

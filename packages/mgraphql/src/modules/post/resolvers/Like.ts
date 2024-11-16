@@ -9,7 +9,7 @@ export class LikeResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Mutation(() => Boolean)
-    async like(@Arg('data') { id }: IdInput, @Ctx() { user }: IContext) {
+    async like(@Arg('data') { id }: IdInput, @Ctx() { req: { user } }: IContext) {
         const post = await Post.findOne(id);
         if (!post) {
             throw new Error('Post not found');
@@ -22,7 +22,7 @@ export class LikeResolver {
     @Authorized()
     @UseMiddleware(LogAccess, ResolveTime)
     @Mutation(() => Boolean)
-    async unlike(@Arg('data') { id }: IdInput, @Ctx() { user }: IContext) {
+    async unlike(@Arg('data') { id }: IdInput, @Ctx() { req: { user } }: IContext) {
         const post = await Post.findOne(id);
         if (!post) {
             throw new Error('Post not found');
